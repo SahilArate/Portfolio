@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Portfolio - Sahil Arate</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #f8f9fa; /* light background for professional look */
+    color: #333;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Navigation */
+nav {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff;
+    padding: 10px 20px;
+    border-radius: 50px;
+    z-index: 1000;
+    border: 1px solid #ddd;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+nav a {
+    color: #333;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+nav a:hover, nav a.active {
+    background: #00d4ff;
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(0,212,255,0.3);
+}
+
+/* Main Container */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 100px 20px 20px;
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 80px 0;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    color: #00d4ff;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 12px 35px;
+    background: #00d4ff;
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+    background: #009ec3;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,212,255,0.3);
+}
+
+/* Cards */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 25px;
+    border: 1px solid #ddd;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+    color: #00d4ff;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+/* Skills Section */
+.skill-item {
+    margin-bottom: 20px;
+}
+
+.skill-name {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.skill-bar {
+    background: #e0e0e0;
+    border-radius: 10px;
+    height: 10px;
+    overflow: hidden;
+}
+
+.skill-progress {
+    height: 100%;
+    background: #00d4ff;
+    border-radius: 10px;
+    transition: width 1s ease-in-out;
+}
+
+/* Contact Form */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #00d4ff;
+    box-shadow: 0 0 15px rgba(0,212,255,0.2);
+}
+
+button[type="submit"] {
+    padding: 12px 30px;
+    background: #00d4ff;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background: #009ec3;
+}
+/* Hero Image */
+.hero img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #00d4ff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    margin-bottom: 20px;
+}
+
+
+/* Timeline */
+.timeline {
+    position: relative;
+    padding-left: 25px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #00d4ff;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+    padding-left: 40px;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 0;
+    width: 15px;
+    height: 15px;
+    background: #00d4ff;
+    border-radius: 50%;
+}
+
+.timeline-date {
+    color: #ff007f;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    nav ul {
+        gap: 12px;
+    }
+    nav a {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+<body>
+<nav>
+    <ul>
+        <li><a href="#" onclick="showTab('home')" class="nav-link active">Home</a></li>
+        <li><a href="#" onclick="showTab('about')" class="nav-link">About</a></li>
+        <li><a href="#" onclick="showTab('skills')" class="nav-link">Skills</a></li>
+        <li><a href="#" onclick="showTab('portfolio')" class="nav-link">Portfolio</a></li>
+        <li><a href="#" onclick="showTab('experience')" class="nav-link">Experience</a></li>
+        <li><a href="#" onclick="showTab('contact')" class="nav-link">Contact</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <!-- Home Tab -->
+    <!-- Home Tab -->
+<div id="home" class="tab-content active">
+    <div class="hero">
+        <img src="sahilarate.jpeg" alt="Sahil Arate">
+        <h1>Sahil Arate</h1>
+        <p>Computer Science and Engineering</p>
+        <p>Full Stack Developer & Creative Designer</p>
+        <p>Cloud Computing</p>
+        <p>Crafting digital experiences that inspire and engage</p>
+        <a href="#" onclick="showTab('contact')" class="cta-button">Let's Work Together</a>
+    </div>
+</div>
+
+
+    <!-- About Tab -->
+    <div id="about" class="tab-content">
+        <div class="hero">
+            <h1>About Me</h1>
+            <p>Passionate developer with a keen eye for design and innovation</p>
+        </div>
+        <div class="card-grid">
+            <div class="card">
+                <h3>🚀 My Journey</h3>
+                <p>I began my journey with a Diploma in Computer Science and Engineering after 10th, and later pursued a BE in CSE to strengthen my foundation. Along the way, I grew into a Full Stack Developer with expertise in modern web technologies and cloud computing.</p>
+            </div>
+            <div class="card">
+                <h3>💡 Philosophy</h3>
+                <p>I believe technology is not just about writing code, but about creating solutions that make life simpler and smarter. My philosophy is to keep learning, keep building, and use my skills to bring meaningful impact through innovation.</p>
+            </div>
+            <div class="card">
+                <h3>🎯 Goals</h3>
+                <p>My goal is to grow as a skilled Full Stack Developer while sharpening my problem-solving skills through Java DSA. I aspire to build innovative solutions using modern technologies and cloud computing that make a real-world impact.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skills Tab -->
+    <div id="skills" class="tab-content">
+        <div class="hero">
+            <h1>Technical Skills</h1>
+            <p>Tools and technologies I work with</p>
+        </div>
+        <div class="card-grid">
+            <div class="card">
+                <h3>Frontend Development</h3>
+                <div class="skill-item"><div class="skill-name"><span>JavaScript</span><span>95%</span></div><div class="skill-bar"><div class="skill-progress" style="width:95%"></div></div></div>
+                <div class="skill-item"><div class="skill-name"><span>React</span><span>90%</span></div><div class="skill-bar"><div class="skill-progress" style="width:90%"></div></div></div>
+                <div class="skill-item"><div class="skill-name"><span>CSS</span><span>90%</span></div><div class="skill-bar"><div class="skill-progress" style="width:90%"></div></div></div>
+                <div class="skill-item"><div class="skill-name"><span>HTML</span><span>80%</span></div><div class="skill-bar"><div class="skill-progress" style="width:80%"></div></div></div>
+            </div>
+            <div class="card">
+                <h3>Backend Development</h3>
+                <div class="skill-item"><div class="skill-name"><span>Node.js</span><span>95%</span></div><div class="skill-bar"><div class="skill-progress" style="width:95%"></div></div></div>
+                <div class="skill-item"><div class="skill-name"><span>Database Design</span><span>82%</span></div><div class="skill-bar"><div class="skill-progress" style="width:82%"></div></div></div>
+                <div class="skill-item"><div class="skill-name"><span>MongoDB</span><span>85%</span></div><div class="skill-bar"><div class="skill-progress" style="width:85%"></div></div></div>
+                <div class="skill-item"><div class="skill-name"><span>MySQL</span><span>82%</span></div><div class="skill-bar"><div class="skill-progress" style="width:82%"></div></div></div>
+            </div>
+            <div class="card">
+                <h3>Tools & Others</h3>
+                <div class="skill-item"><div class="skill-name"><span>Git/Version Control</span><span>92%</span></div><div class="skill-bar"><div class="skill-progress" style="width:92%"></div></div></div>
+                <div class="skill-item"><div class="skill-name"><span>UI/UX Design</span><span>75%</span></div><div class="skill-bar"><div class="skill-progress" style="width:75%"></div></div></div>
+                <div class="skill-item"><div class="skill-name"><span>Cloud Services(AWS)</span><span>78%</span></div><div class="skill-bar"><div class="skill-progress" style="width:78%"></div></div></div>
+                <div class="skill-item"><div class="skill-name"><span>Docker</span><span>85%</span></div><div class="skill-bar"><div class="skill-progress" style="width:85%"></div></div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Portfolio Tab -->
+    <div id="portfolio" class="tab-content">
+        <div class="hero"><h1>My Work</h1><p>Projects that showcase my passion and expertise</p></div>
+        <div class="card-grid">
+            <div class="card">
+<h3>Fetal Monitoring System</h3>
+<p><strong>Tech:</strong> ESP8266, MPU6050, React Native, Firebase DB, Gemini API</p>
+<p>
+Developed a smart healthcare monitoring system to track baby kicks and
+movements in real time. Sensor data is stored in Firebase and visualized
+through rich charts and dashboards in a React Native mobile application.
+</p>
+</div>
+
+<div class="card">
+<h3>Small Case Finding Application</h3>
+<p><strong>Tech:</strong> MERN Stack, Docker, AWS</p>
+<p>
+Built a funding and analysis platform with advanced data visualization
+features. The application was containerized using Docker and deployed on
+AWS for scalable and reliable access.
+</p>
+</div>
+
+<div class="card">
+<h3>Data Visualization Project</h3>
+<p><strong>Tech:</strong> JavaScript, Visualization Libraries, AWS</p>
+<p>
+Designed an interactive data visualization system to represent complex
+datasets in a clear and user-friendly manner. The project is fully
+hosted on AWS.
+</p>
+</div>
+        </div>
+    </div>
+
+    <!-- Experience Tab -->
+    <div id="experience" class="tab-content">
+<div class="hero">
+<h1>Professional Journey</h1>
+</div>
+
+<div class="timeline">
+
+<div class="timeline-item">
+<div class="timeline-date">Aug 2024 - Oct 2024</div>
+<h3>Web Development Intern</h3>
+<h4>Prodigy Infotech</h4>
+<p>
+Worked on frontend and backend web development tasks, focusing on
+responsive UI development and JavaScript-based applications.
+</p>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-date">2024</div>
+<h3>CNC Programmer (Paid Stipend)</h3>
+<h4>Spacecon</h4>
+<p>
+Worked as a CNC programmer handling precision manufacturing operations.
+Gained practical experience with industrial workflows and quality
+standards.
+</p>
+</div>
+
+<div class="timeline-item">
+<div class="timeline-date">Mar 2023 - May 2023</div>
+<h3>Cloud Security Intern (Paid Stipend)</h3>
+<h4>Eyesec Cyber Security Solutions Pvt. Ltd.</h4>
+<p>
+Gained hands-on experience with AWS, Azure, and cloud security concepts.
+Worked on securing cloud infrastructure and understanding real-world
+security challenges.
+</p>
+</div>
+
+</div>
+</div>
+
+    <!-- Contact Tab -->
+    <div id="contact" class="tab-content">
+        <div class="hero"><h1>Let's Connect</h1><p>Ready to bring your ideas to life? Let's discuss your next project</p></div>
+        <div class="card-grid">
+            <div class="card">
+                <h3>📞 Get In Touch</h3>
+                <p><strong>Email:</strong> sahilarate5@gmail.com</p>
+                <p><strong>Phone:</strong> +91 9108696287</p>
+                <p><strong>Location:</strong> Belgaum, Karnataka</p>
+                <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/sahil-arate-ba9a14254/">https://www.linkedin.com/in/sahil-arate-ba9a14254/</a></p>
+                <p><strong>GitHub:</strong> <a href="http://github.com/SahilArate">http://github.com/SahilArate</a></p>
+            </div>
+            <div class="card">
+                <h3>💬 Send Message</h3>
+<form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="thank-you.html">
+  <input type="hidden" name="form-name" value="contact" />
+  <p style="display:none">
+    <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
+  </p>
+  <div class="form-group">
+    <label>Your Name</label>
+    <input type="text" name="name" required />
+  </div>
+  <div class="form-group">
+    <label>Email</label>
+    <input type="email" name="email" required />
+  </div>
+  <div class="form-group">
+    <label>Project Type</label>
+    <select name="projectType">
+      <option>Web Application</option>
+      <option>Mobile App</option>
+      <option>E-commerce</option>
+      <option>Consultation</option>
+      <option>Other</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Message</label>
+    <textarea name="message" rows="5" required></textarea>
+  </div>
+  <button type="submit">Send</button>
+</form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function showTab(tabName) {
+    const tabs = document.querySelectorAll('.tab-content');
+    tabs.forEach(tab => tab.classList.remove('active'));
+    document.getElementById(tabName).classList.add('active');
+
+    const links = document.querySelectorAll('.nav-link');
+    links.forEach(link => link.classList.remove('active'));
+    event.currentTarget.classList.add('active');
+}
+</script>
+</body>
+</html>
