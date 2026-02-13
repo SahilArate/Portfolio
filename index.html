@@ -3,8 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Portfolio - Sahil Arate</title>
+<title>Sahil Arate - Full Stack Developer</title>
 <style>
+:root {
+    --primary: #6366f1;
+    --secondary: #8b5cf6;
+    --accent: #ec4899;
+    --dark: #0f172a;
+    --darker: #020617;
+    --light: #f1f5f9;
+    --text: #cbd5e1;
+    --text-dark: #94a3b8;
+    --card-bg: #1e293b;
+    --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -12,11 +25,39 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif;
-    background: #f8f9fa; /* light background for professional look */
-    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--darker);
+    color: var(--text);
     overflow-x: hidden;
-    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* Animated Background */
+.bg-animation {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.bg-animation::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+    animation: bgMove 20s ease infinite;
+}
+
+@keyframes bgMove {
+    0%, 100% { transform: translate(0, 0); }
+    33% { transform: translate(-5%, -5%); }
+    66% { transform: translate(3%, 3%); }
 }
 
 /* Navigation */
@@ -25,152 +66,408 @@ nav {
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background: #ffffff;
-    padding: 10px 20px;
+    background: rgba(30, 41, 59, 0.8);
+    backdrop-filter: blur(20px);
+    padding: 12px 24px;
     border-radius: 50px;
     z-index: 1000;
-    border: 1px solid #ddd;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 nav ul {
     display: flex;
     list-style: none;
-    gap: 25px;
+    gap: 8px;
 }
 
 nav a {
-    color: #333;
+    color: var(--text);
     text-decoration: none;
-    padding: 12px 24px;
+    padding: 10px 20px;
     border-radius: 25px;
     transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
 }
 
-nav a:hover, nav a.active {
-    background: #00d4ff;
-    color: #fff;
-    box-shadow: 0 5px 15px rgba(0,212,255,0.3);
+nav a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient);
+    border-radius: 25px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
 }
 
-/* Main Container */
+nav a:hover::before,
+nav a.active::before {
+    opacity: 1;
+}
+
+nav a:hover,
+nav a.active {
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Container */
 .container {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 100px 20px 20px;
+    padding: 120px 20px 40px;
 }
 
 .tab-content {
     display: none;
-    animation: fadeIn 0.6s ease-in-out;
+    animation: fadeInUp 0.6s ease-in-out;
 }
 
 .tab-content.active {
     display: block;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+@keyframes fadeInUp {
+    from { 
+        opacity: 0; 
+        transform: translateY(30px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
 }
 
 /* Hero Section */
 .hero {
     text-align: center;
-    padding: 80px 0;
+    padding: 60px 0;
+    position: relative;
+}
+
+.hero-image-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 30px;
+}
+
+.hero img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid transparent;
+    background: var(--gradient);
+    padding: 4px;
+    box-shadow: 0 20px 60px rgba(99, 102, 241, 0.4);
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.hero-image-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    background: var(--gradient);
+    border-radius: 50%;
+    opacity: 0.2;
+    filter: blur(30px);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.1); }
 }
 
 .hero h1 {
-    font-size: 3rem;
-    color: #00d4ff;
-    margin-bottom: 15px;
+    font-size: 4rem;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+    font-weight: 700;
+    letter-spacing: -2px;
+}
+
+.hero .subtitle {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 8px;
+    font-weight: 600;
 }
 
 .hero p {
     font-size: 1.1rem;
-    margin-bottom: 10px;
-    opacity: 0.8;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+
+.hero .tagline {
+    font-size: 1.2rem;
+    color: var(--text);
+    margin-top: 15px;
+    margin-bottom: 30px;
 }
 
 .cta-button {
     display: inline-block;
-    padding: 12px 35px;
-    background: #00d4ff;
+    padding: 14px 40px;
+    background: var(--gradient);
     color: white;
     text-decoration: none;
     border-radius: 50px;
-    font-weight: bold;
+    font-weight: 600;
     transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.cta-button:hover::before {
+    left: 100%;
 }
 
 .cta-button:hover {
-    background: #009ec3;
     transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(0,212,255,0.3);
+    box-shadow: 0 15px 40px rgba(99, 102, 241, 0.6);
 }
 
 /* Cards */
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 30px;
     margin-top: 50px;
 }
 
 .card {
-    background: #ffffff;
-    border-radius: 15px;
-    padding: 25px;
-    border: 1px solid #ddd;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 30px;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.card:hover::before {
+    transform: scaleX(1);
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    transform: translateY(-8px);
+    border-color: rgba(99, 102, 241, 0.5);
+    box-shadow: 0 16px 48px rgba(99, 102, 241, 0.2);
 }
 
 .card h3 {
-    color: #00d4ff;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin-bottom: 15px;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.card p {
+    color: var(--text-dark);
+    line-height: 1.8;
+}
+
+.card strong {
+    color: var(--primary);
+}
+
+/* Project Tags */
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 6px 14px;
+    background: rgba(99, 102, 241, 0.2);
+    color: var(--primary);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    transition: all 0.3s ease;
+}
+
+.tag:hover {
+    background: rgba(99, 102, 241, 0.3);
+    transform: translateY(-2px);
 }
 
 /* Skills Section */
 .skill-item {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .skill-name {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.skill-name span:first-child {
+    color: var(--text);
+}
+
+.skill-name span:last-child {
+    color: var(--primary);
+    font-weight: 600;
 }
 
 .skill-bar {
-    background: #e0e0e0;
+    background: rgba(99, 102, 241, 0.1);
     border-radius: 10px;
-    height: 10px;
+    height: 12px;
     overflow: hidden;
+    position: relative;
 }
 
 .skill-progress {
     height: 100%;
-    background: #00d4ff;
+    background: var(--gradient);
     border-radius: 10px;
-    transition: width 1s ease-in-out;
+    transition: width 1.5s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.skill-progress::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Timeline */
+.timeline {
+    position: relative;
+    padding-left: 40px;
+    margin-top: 40px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--gradient);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 50px;
+    padding-left: 40px;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 5px;
+    width: 20px;
+    height: 20px;
+    background: var(--gradient);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px var(--darker), 0 0 20px rgba(99, 102, 241, 0.5);
+}
+
+.timeline-date {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(236, 72, 153, 0.2);
+    border-radius: 12px;
+}
+
+.timeline-item h3 {
+    color: var(--primary);
+    margin-bottom: 5px;
+    font-size: 1.4rem;
+}
+
+.timeline-item h4 {
+    color: var(--text);
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.timeline-item p {
+    color: var(--text-dark);
 }
 
 /* Contact Form */
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 5px;
-    color: #333;
+    margin-bottom: 8px;
+    color: var(--text);
     font-weight: 600;
 }
 
@@ -178,10 +475,12 @@ nav a:hover, nav a.active {
 .form-group textarea,
 .form-group select {
     width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: 1px solid rgba(99, 102, 241, 0.3);
     font-size: 15px;
+    background: rgba(30, 41, 59, 0.5);
+    color: var(--text);
     transition: all 0.3s ease;
 }
 
@@ -189,100 +488,123 @@ nav a:hover, nav a.active {
 .form-group textarea:focus,
 .form-group select:focus {
     outline: none;
-    border-color: #00d4ff;
-    box-shadow: 0 0 15px rgba(0,212,255,0.2);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    background: rgba(30, 41, 59, 0.8);
 }
 
 button[type="submit"] {
-    padding: 12px 30px;
-    background: #00d4ff;
-    color: #fff;
+    padding: 14px 40px;
+    background: var(--gradient);
+    color: white;
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 16px;
     transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
 }
 
 button[type="submit"]:hover {
-    background: #009ec3;
-}
-/* Hero Image */
-.hero img {
-    width: 180px;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 4px solid #00d4ff;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    margin-bottom: 20px;
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(99, 102, 241, 0.6);
 }
 
-
-/* Timeline */
-.timeline {
-    position: relative;
-    padding-left: 25px;
+/* Contact Links */
+.contact-link {
+    color: var(--primary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
 }
 
-.timeline::before {
-    content: '';
-    position: absolute;
-    left: 10px;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: #00d4ff;
+.contact-link:hover {
+    color: var(--accent);
+    transform: translateX(5px);
 }
 
-.timeline-item {
-    position: relative;
-    margin-bottom: 40px;
-    padding-left: 40px;
+/* Section Headers */
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
 }
 
-.timeline-item::before {
-    content: '';
-    position: absolute;
-    left: -10px;
-    top: 0;
-    width: 15px;
-    height: 15px;
-    background: #00d4ff;
-    border-radius: 50%;
+.section-header h1 {
+    font-size: 3rem;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 15px;
+    font-weight: 700;
 }
 
-.timeline-date {
-    color: #ff007f;
-    font-weight: bold;
-    font-size: 0.9rem;
+.section-header p {
+    font-size: 1.2rem;
+    color: var(--text-dark);
+}
+
+/* Icon Emojis Enhancement */
+.card h3::before {
+    margin-right: 10px;
+    font-size: 1.8rem;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
     nav ul {
-        gap: 12px;
+        gap: 5px;
     }
+    
     nav a {
-        padding: 8px 15px;
-        font-size: 14px;
+        padding: 8px 12px;
+        font-size: 12px;
     }
+    
     .hero h1 {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
     }
+    
+    .hero .subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .section-header h1 {
+        font-size: 2rem;
+    }
+    
     .card-grid {
         grid-template-columns: 1fr;
     }
+    
+    .container {
+        padding: 100px 15px 30px;
+    }
+}
+
+/* Scroll Reveal Animation */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
 }
 </style>
 </head>
 <body>
+<div class="bg-animation"></div>
+
 <nav>
     <ul>
         <li><a href="#" onclick="showTab('home')" class="nav-link active">Home</a></li>
         <li><a href="#" onclick="showTab('about')" class="nav-link">About</a></li>
         <li><a href="#" onclick="showTab('skills')" class="nav-link">Skills</a></li>
-        <li><a href="#" onclick="showTab('portfolio')" class="nav-link">Portfolio</a></li>
+        <li><a href="#" onclick="showTab('portfolio')" class="nav-link">Projects</a></li>
         <li><a href="#" onclick="showTab('experience')" class="nav-link">Experience</a></li>
         <li><a href="#" onclick="showTab('contact')" class="nav-link">Contact</a></li>
     </ul>
@@ -290,36 +612,36 @@ button[type="submit"]:hover {
 
 <div class="container">
     <!-- Home Tab -->
-    <!-- Home Tab -->
-<div id="home" class="tab-content active">
-    <div class="hero">
-        <img src="sahilarate.jpeg" alt="Sahil Arate">
-        <h1>Sahil Arate</h1>
-        <p>Computer Science and Engineering</p>
-        <p>Full Stack Developer & Creative Designer</p>
-        <p>Cloud Computing</p>
-        <p>Crafting digital experiences that inspire and engage</p>
-        <a href="#" onclick="showTab('contact')" class="cta-button">Let's Work Together</a>
+    <div id="home" class="tab-content active">
+        <div class="hero">
+            <div class="hero-image-wrapper">
+                <img src="sahilarate.jpeg" alt="Sahil Arate">
+            </div>
+            <h1>Sahil Arate</h1>
+            <p class="subtitle">Full Stack Developer & Creative Designer</p>
+            <p>Computer Science and Engineering</p>
+            <p>Cloud Computing Enthusiast</p>
+            <p class="tagline">Crafting digital experiences that inspire and innovate</p>
+            <a href="#" onclick="showTab('contact')" class="cta-button">Let's Work Together</a>
+        </div>
     </div>
-</div>
-
 
     <!-- About Tab -->
     <div id="about" class="tab-content">
-        <div class="hero">
+        <div class="section-header">
             <h1>About Me</h1>
             <p>Passionate developer with a keen eye for design and innovation</p>
         </div>
         <div class="card-grid">
-            <div class="card">
+            <div class="card reveal">
                 <h3>🚀 My Journey</h3>
                 <p>I began my journey with a Diploma in Computer Science and Engineering after 10th, and later pursued a BE in CSE to strengthen my foundation. Along the way, I grew into a Full Stack Developer with expertise in modern web technologies and cloud computing.</p>
             </div>
-            <div class="card">
+            <div class="card reveal">
                 <h3>💡 Philosophy</h3>
                 <p>I believe technology is not just about writing code, but about creating solutions that make life simpler and smarter. My philosophy is to keep learning, keep building, and use my skills to bring meaningful impact through innovation.</p>
             </div>
-            <div class="card">
+            <div class="card reveal">
                 <h3>🎯 Goals</h3>
                 <p>My goal is to grow as a skilled Full Stack Developer while sharpening my problem-solving skills through Java DSA. I aspire to build innovative solutions using modern technologies and cloud computing that make a real-world impact.</p>
             </div>
@@ -328,159 +650,253 @@ button[type="submit"]:hover {
 
     <!-- Skills Tab -->
     <div id="skills" class="tab-content">
-        <div class="hero">
+        <div class="section-header">
             <h1>Technical Skills</h1>
             <p>Tools and technologies I work with</p>
         </div>
         <div class="card-grid">
-            <div class="card">
+            <div class="card reveal">
                 <h3>Frontend Development</h3>
-                <div class="skill-item"><div class="skill-name"><span>JavaScript</span><span>95%</span></div><div class="skill-bar"><div class="skill-progress" style="width:95%"></div></div></div>
-                <div class="skill-item"><div class="skill-name"><span>React</span><span>90%</span></div><div class="skill-bar"><div class="skill-progress" style="width:90%"></div></div></div>
-                <div class="skill-item"><div class="skill-name"><span>CSS</span><span>90%</span></div><div class="skill-bar"><div class="skill-progress" style="width:90%"></div></div></div>
-                <div class="skill-item"><div class="skill-name"><span>HTML</span><span>80%</span></div><div class="skill-bar"><div class="skill-progress" style="width:80%"></div></div></div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>JavaScript</span><span>95%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width:95%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>React</span><span>90%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width:90%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>TypeScript</span><span>85%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width:85%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>CSS</span><span>90%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width:90%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>HTML</span><span>95%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width:95%"></div></div>
+                </div>
             </div>
-            <div class="card">
+            <div class="card reveal">
                 <h3>Backend Development</h3>
-                <div class="skill-item"><div class="skill-name"><span>Node.js</span><span>95%</span></div><div class="skill-bar"><div class="skill-progress" style="width:95%"></div></div></div>
-                <div class="skill-item"><div class="skill-name"><span>Database Design</span><span>82%</span></div><div class="skill-bar"><div class="skill-progress" style="width:82%"></div></div></div>
-                <div class="skill-item"><div class="skill-name"><span>MongoDB</span><span>85%</span></div><div class="skill-bar"><div class="skill-progress" style="width:85%"></div></div></div>
-                <div class="skill-item"><div class="skill-name"><span>MySQL</span><span>82%</span></div><div class="skill-bar"><div class="skill-progress" style="width:82%"></div></div></div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>Node.js</span><span>95%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width:95%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>Next.js</span><span>88%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width:88%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>MongoDB</span><span>85%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width:85%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>MySQL</span><span>82%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width:82%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>REST API</span><span>90%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width:90%"></div></div>
+                </div>
             </div>
-            <div class="card">
-                <h3>Tools & Others</h3>
-                <div class="skill-item"><div class="skill-name"><span>Git/Version Control</span><span>92%</span></div><div class="skill-bar"><div class="skill-progress" style="width:92%"></div></div></div>
-                <div class="skill-item"><div class="skill-name"><span>UI/UX Design</span><span>75%</span></div><div class="skill-bar"><div class="skill-progress" style="width:75%"></div></div></div>
-                <div class="skill-item"><div class="skill-name"><span>Cloud Services(AWS)</span><span>78%</span></div><div class="skill-bar"><div class="skill-progress" style="width:78%"></div></div></div>
-                <div class="skill-item"><div class="skill-name"><span>Docker</span><span>85%</span></div><div class="skill-bar"><div class="skill-progress" style="width:85%"></div></div></div>
+            <div class="card reveal">
+                <h3>Tools & Cloud</h3>
+                <div class="skill-item">
+                    <div class="skill-name"><span>Git/GitHub</span><span>92%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width:92%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>AWS</span><span>78%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width:78%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>Docker</span><span>85%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width:85%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>UI/UX Design</span><span>75%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width:75%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name"><span>Firebase</span><span>80%</span></div>
+                    <div class="skill-bar"><div class="skill-progress" style="width:80%"></div></div>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Portfolio Tab -->
     <div id="portfolio" class="tab-content">
-        <div class="hero"><h1>My Work</h1><p>Projects that showcase my passion and expertise</p></div>
+        <div class="section-header">
+            <h1>Featured Projects</h1>
+            <p>Innovative solutions that showcase my passion and expertise</p>
+        </div>
         <div class="card-grid">
-            <div class="card">
-<h3>Fetal Monitoring System</h3>
-<p><strong>Tech:</strong> ESP8266, MPU6050, React Native, Firebase DB, Gemini API</p>
-<p>
-Developed a smart healthcare monitoring system to track baby kicks and
-movements in real time. Sensor data is stored in Firebase and visualized
-through rich charts and dashboards in a React Native mobile application.
-</p>
-</div>
+            <div class="card reveal">
+                <h3>Women Empowerment Platform</h3>
+                <p>A comprehensive digital platform designed to empower women through technology, providing real-time job matching for pregnant women, mental health support with AI-powered counseling, guided mental wellness exercises, and educational resources.</p>
+                <p><strong>Key Features:</strong></p>
+                <p>• Real-time pregnancy-friendly job recommendations<br>
+                • AI mental health chatbot using GenAI & LLM<br>
+                • Mental exercise tracking and guided meditation<br>
+                • Book recommendations via Google Books API<br>
+                • Latest women-centric news aggregation<br>
+                • JWT-based secure authentication</p>
+                <div class="project-tags">
+                    <span class="tag">React</span>
+                    <span class="tag">Next.js</span>
+                    <span class="tag">TypeScript</span>
+                    <span class="tag">Node.js</span>
+                    <span class="tag">MongoDB</span>
+                    <span class="tag">MERN</span>
+                    <span class="tag">JWT</span>
+                    <span class="tag">GenAI</span>
+                    <span class="tag">LLM</span>
+                    <span class="tag">Google Books API</span>
+                    <span class="tag">News API</span>
+                </div>
+            </div>
 
-<div class="card">
-<h3>Small Case Finding Application</h3>
-<p><strong>Tech:</strong> MERN Stack, Docker, AWS</p>
-<p>
-Built a funding and analysis platform with advanced data visualization
-features. The application was containerized using Docker and deployed on
-AWS for scalable and reliable access.
-</p>
-</div>
+            <div class="card reveal">
+                <h3>Fetal Monitoring System</h3>
+                <p>A smart IoT-based healthcare monitoring system that tracks baby kicks and movements in real-time, providing expecting mothers with peace of mind through data-driven insights.</p>
+                <p><strong>Key Features:</strong></p>
+                <p>• Real-time movement detection with MPU6050<br>
+                • Firebase cloud data storage & sync<br>
+                • Rich data visualization with interactive charts<br>
+                • AI-powered analysis using Gemini API<br>
+                • Cross-platform React Native mobile app</p>
+                <div class="project-tags">
+                    <span class="tag">ESP8266</span>
+                    <span class="tag">MPU6050</span>
+                    <span class="tag">React Native</span>
+                    <span class="tag">Firebase</span>
+                    <span class="tag">Gemini API</span>
+                    <span class="tag">IoT</span>
+                </div>
+            </div>
 
-<div class="card">
-<h3>Data Visualization Project</h3>
-<p><strong>Tech:</strong> JavaScript, Visualization Libraries, AWS</p>
-<p>
-Designed an interactive data visualization system to represent complex
-datasets in a clear and user-friendly manner. The project is fully
-hosted on AWS.
-</p>
-</div>
+            <div class="card reveal">
+                <h3>SmallCase Funding Platform</h3>
+                <p>Built a sophisticated funding and financial analysis platform with advanced data visualization capabilities, enabling investors to make informed decisions through comprehensive market insights.</p>
+                <p><strong>Key Features:</strong></p>
+                <p>• Interactive data visualization dashboards<br>
+                • Real-time market analysis tools<br>
+                • Containerized with Docker for scalability<br>
+                • AWS cloud deployment for reliability<br>
+                • RESTful API architecture</p>
+                <div class="project-tags">
+                    <span class="tag">MongoDB</span>
+                    <span class="tag">Express</span>
+                    <span class="tag">React</span>
+                    <span class="tag">Node.js</span>
+                    <span class="tag">Docker</span>
+                    <span class="tag">AWS</span>
+                    <span class="tag">Chart.js</span>
+                </div>
+            </div>
+
+            <div class="card reveal">
+                <h3>Data Visualization Dashboard</h3>
+                <p>Designed and developed an interactive data visualization system that transforms complex datasets into clear, actionable insights through modern charting libraries and intuitive UI design.</p>
+                <p><strong>Key Features:</strong></p>
+                <p>• Dynamic and interactive charts<br>
+                • Real-time data updates<br>
+                • Responsive design for all devices<br>
+                • Custom visualization components<br>
+                • AWS-hosted for global accessibility</p>
+                <div class="project-tags">
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">D3.js</span>
+                    <span class="tag">Chart.js</span>
+                    <span class="tag">AWS</span>
+                    <span class="tag">REST API</span>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Experience Tab -->
     <div id="experience" class="tab-content">
-<div class="hero">
-<h1>Professional Journey</h1>
-</div>
+        <div class="section-header">
+            <h1>Professional Journey</h1>
+            <p>Building expertise through diverse experiences</p>
+        </div>
 
-<div class="timeline">
+        <div class="timeline">
+            <div class="timeline-item reveal">
+                <div class="timeline-date">Aug 2024 - Oct 2024</div>
+                <h3>Web Development Intern</h3>
+                <h4>Prodigy Infotech</h4>
+                <p>Worked on frontend and backend web development tasks, focusing on responsive UI development and JavaScript-based applications. Developed multiple full-stack projects using modern frameworks and best practices.</p>
+            </div>
 
-<div class="timeline-item">
-<div class="timeline-date">Aug 2024 - Oct 2024</div>
-<h3>Web Development Intern</h3>
-<h4>Prodigy Infotech</h4>
-<p>
-Worked on frontend and backend web development tasks, focusing on
-responsive UI development and JavaScript-based applications.
-</p>
-</div>
+            <div class="timeline-item reveal">
+                <div class="timeline-date">2024</div>
+                <h3>CNC Programmer (Paid Stipend)</h3>
+                <h4>Spacecon</h4>
+                <p>Worked as a CNC programmer handling precision manufacturing operations. Gained practical experience with industrial workflows, quality standards, and automation systems in a manufacturing environment.</p>
+            </div>
 
-<div class="timeline-item">
-<div class="timeline-date">2024</div>
-<h3>CNC Programmer (Paid Stipend)</h3>
-<h4>Spacecon</h4>
-<p>
-Worked as a CNC programmer handling precision manufacturing operations.
-Gained practical experience with industrial workflows and quality
-standards.
-</p>
-</div>
-
-<div class="timeline-item">
-<div class="timeline-date">Mar 2023 - May 2023</div>
-<h3>Cloud Security Intern (Paid Stipend)</h3>
-<h4>Eyesec Cyber Security Solutions Pvt. Ltd.</h4>
-<p>
-Gained hands-on experience with AWS, Azure, and cloud security concepts.
-Worked on securing cloud infrastructure and understanding real-world
-security challenges.
-</p>
-</div>
-
-</div>
-</div>
+            <div class="timeline-item reveal">
+                <div class="timeline-date">Mar 2023 - May 2023</div>
+                <h3>Cloud Security Intern (Paid Stipend)</h3>
+                <h4>Eyesec Cyber Security Solutions Pvt. Ltd.</h4>
+                <p>Gained hands-on experience with AWS and Azure cloud platforms. Worked on securing cloud infrastructure, implementing security best practices, and understanding real-world cybersecurity challenges in cloud environments.</p>
+            </div>
+        </div>
+    </div>
 
     <!-- Contact Tab -->
     <div id="contact" class="tab-content">
-        <div class="hero"><h1>Let's Connect</h1><p>Ready to bring your ideas to life? Let's discuss your next project</p></div>
+        <div class="section-header">
+            <h1>Let's Connect</h1>
+            <p>Ready to bring your ideas to life? Let's discuss your next project</p>
+        </div>
         <div class="card-grid">
-            <div class="card">
+            <div class="card reveal">
                 <h3>📞 Get In Touch</h3>
-                <p><strong>Email:</strong> sahilarate5@gmail.com</p>
-                <p><strong>Phone:</strong> +91 9108696287</p>
-                <p><strong>Location:</strong> Belgaum, Karnataka</p>
-                <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/sahil-arate-ba9a14254/">https://www.linkedin.com/in/sahil-arate-ba9a14254/</a></p>
-                <p><strong>GitHub:</strong> <a href="http://github.com/SahilArate">http://github.com/SahilArate</a></p>
+                <p><strong>Email:</strong> <a href="mailto:sahilarate5@gmail.com" class="contact-link">sahilarate5@gmail.com</a></p>
+                <p><strong>Phone:</strong> <a href="tel:+919108696287" class="contact-link">+91 9108696287</a></p>
+                <p><strong>Location:</strong> Belgaum, Karnataka, India</p>
+                <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/sahil-arate-ba9a14254/" target="_blank" class="contact-link">linkedin.com/in/sahil-arate</a></p>
+                <p><strong>GitHub:</strong> <a href="http://github.com/SahilArate" target="_blank" class="contact-link">github.com/SahilArate</a></p>
             </div>
-            <div class="card">
+            <div class="card reveal">
                 <h3>💬 Send Message</h3>
-<form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="thank-you.html">
-  <input type="hidden" name="form-name" value="contact" />
-  <p style="display:none">
-    <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
-  </p>
-  <div class="form-group">
-    <label>Your Name</label>
-    <input type="text" name="name" required />
-  </div>
-  <div class="form-group">
-    <label>Email</label>
-    <input type="email" name="email" required />
-  </div>
-  <div class="form-group">
-    <label>Project Type</label>
-    <select name="projectType">
-      <option>Web Application</option>
-      <option>Mobile App</option>
-      <option>E-commerce</option>
-      <option>Consultation</option>
-      <option>Other</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label>Message</label>
-    <textarea name="message" rows="5" required></textarea>
-  </div>
-  <button type="submit">Send</button>
-</form>
-
-
+                <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="thank-you.html">
+                    <input type="hidden" name="form-name" value="contact" />
+                    <p style="display:none">
+                        <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                    </p>
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" name="name" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Project Type</label>
+                        <select name="projectType">
+                            <option>Web Application</option>
+                            <option>Mobile App</option>
+                            <option>E-commerce</option>
+                            <option>AI/ML Integration</option>
+                            <option>Cloud Solutions</option>
+                            <option>Consultation</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit">Send Message</button>
+                </form>
             </div>
         </div>
     </div>
@@ -495,7 +911,35 @@ function showTab(tabName) {
     const links = document.querySelectorAll('.nav-link');
     links.forEach(link => link.classList.remove('active'));
     event.currentTarget.classList.add('active');
+
+    // Trigger reveal animations
+    setTimeout(() => {
+        const reveals = document.querySelectorAll('.reveal');
+        reveals.forEach(reveal => reveal.classList.add('active'));
+    }, 100);
 }
+
+// Initial reveal animation on page load
+window.addEventListener('load', () => {
+    const reveals = document.querySelectorAll('.reveal');
+    reveals.forEach(reveal => reveal.classList.add('active'));
+});
+
+// Smooth scroll reveal on tab change
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
