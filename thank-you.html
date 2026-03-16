@@ -1,19 +1,67 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Thanks — Submission Received</title>
-  <style>
-    body { font-family: Arial, sans-serif; background:#f8f9fa; color:#333; display:flex; align-items:center; justify-content:center; height:100vh; margin:0; }
-    .box { background:#fff; padding:30px; border-radius:10px; box-shadow:0 10px 30px rgba(0,0,0,0.08); text-align:center; max-width:520px;}
-    a { color:#00d4ff; text-decoration:none; font-weight:600; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Message Sent — Sahil Arate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: #060608;
+  color: #e2e4ec;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+}
+.wrap { max-width: 480px; }
+.icon {
+  width: 72px; height: 72px;
+  background: rgba(99,255,180,0.1);
+  border: 1px solid rgba(99,255,180,0.3);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; margin: 0 auto 28px;
+  animation: pop 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+@keyframes pop {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.2rem; font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 14px;
+}
+h1 span {
+  background: linear-gradient(135deg, #63ffb4, #a78bfa);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+p { color: #5a6070; font-size: 1rem; font-weight: 300; line-height: 1.7; margin-bottom: 32px; }
+a {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 28px;
+  background: #63ffb4; color: #060608;
+  border-radius: 50px; text-decoration: none;
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 32px rgba(99,255,180,0.3);
+}
+a:hover { transform: translateY(-2px); box-shadow: 0 0 48px rgba(99,255,180,0.5); }
+</style>
 </head>
 <body>
-  <div class="box">
-    <h1>Thanks — I got your message!</h1>
-    <p>I’ll get back to you soon. Meanwhile you can <a href="/">go back to the portfolio</a>.</p>
-  </div>
+<div class="wrap">
+  <div class="icon">✓</div>
+  <h1>Message <span>Sent!</span></h1>
+  <p>Thanks for reaching out. I'll get back to you as soon as possible — usually within 24 hours.</p>
+  <a href="index.html">← Back to Portfolio</a>
+</div>
 </body>
 </html>
